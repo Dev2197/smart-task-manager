@@ -1,73 +1,97 @@
-# Welcome to your Lovable project
+# 🧠 Natural Language Task Manager
 
-## Project info
+A modern full-stack application that lets you create tasks using natural language. Simply type your task as you would say it, and the app intelligently parses it into structured data using OpenAI's API.
 
-**URL**: https://lovable.dev/projects/d682ce51-c5ba-4b49-81a6-bfc761bf3fc0
+## ✨ Features
 
-## How can I edit this code?
+- 📝 Create tasks using natural language
+- 🤖 AI-powered parsing of task details
+- 📅 Automatic extraction of due dates
+- 👥 Assignee detection
+- ⭐ Priority level assignment
+- 📊 Tasks grouped by priority
 
-There are several ways of editing your application.
+## 🚀 Prerequisites
 
-**Use Lovable**
+- Node.js
+- npm or yarn
+- OpenAI API key
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d682ce51-c5ba-4b49-81a6-bfc761bf3fc0) and start prompting.
+## 💻 Setup & Running Instructions
 
-Changes made via Lovable will be committed automatically to this repo.
+1. **Clone the repository**
 
-**Use your preferred IDE**
+   ```bash
+   git clone <repository-url>
+   ```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+2. **Run Backend & Frontend**
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+   You'll need two terminal windows to run the servers:
 
-Follow these steps:
+   **Terminal 1 - Backend Server:**
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+   ```bash
+   cd backend
+   npm install
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+   # Create .env file in backend directory
+   # Add your OpenAI API key and port (default 3001)
+   OPENAI_API_KEY=your_openai_api_key
+   PORT=3001
 
-# Step 3: Install the necessary dependencies.
-npm i
+   # Start the server
+   npm run dev
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+   **Terminal 2 - Frontend Server:**
 
-**Edit a file directly in GitHub**
+   ```bash
+   cd client
+   npm install
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+   # Optional: Create .env file in client directory
+   # By default, frontend will connect to http://localhost:3001
+   VITE_API_URL=http://localhost:3001
 
-**Use GitHub Codespaces**
+   # Start the frontend
+   npm run dev
+   ```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+   The application will be available at:
 
-## What technologies are used for this project?
+   - Frontend: `http://localhost:8080`
+   - Backend: `http://localhost:3001`
 
-This project is built with:
+## 📝 Example Usage
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Try entering tasks in natural language. Here are some examples:
 
-## How can I deploy this project?
+1. **Task with specified priority (P1 - Urgent):**
 
-Simply open [Lovable](https://lovable.dev/projects/d682ce51-c5ba-4b49-81a6-bfc761bf3fc0) and click on Share -> Publish.
+   > "P1: Submit security patch to Sarah by 5pm today"
 
-## Can I connect a custom domain to my Lovable project?
+   The app will parse this into:
 
-Yes, you can!
+   - Task: Submit security patch
+   - Assignee: Sarah
+   - Due Date: Today at 5:00 PM
+   - Priority: P1 (Urgent)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+2. **Task with default priority (P3 - Medium):**
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+   > "Review design mockups with Alex by next Monday"
+
+   The app will parse this into:
+
+   - Task: Review design mockups
+   - Assignee: Alex
+   - Due Date: Next Monday
+   - Priority: P3 (Medium) - Default
+
+You can specify priorities in your task description:
+
+- P1: Urgent/Critical tasks
+- P2: High priority tasks
+- P3: Medium priority (default)
+- P4: Low priority tasks
