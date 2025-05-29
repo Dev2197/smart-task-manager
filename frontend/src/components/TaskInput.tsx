@@ -3,7 +3,7 @@ import { Plus, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParsedTask } from "../types/Task";
 
-const API_BASE_URL = process.env.VITE_API_URL || "http://localhost:3001/";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/";
 
 interface TaskInputProps {
   onAddTask: (task: ParsedTask) => void;
