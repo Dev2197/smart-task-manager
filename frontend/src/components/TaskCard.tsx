@@ -28,7 +28,14 @@ export const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
   const formatDueDate = (date: Date | null) => {
     if (!date) return null;
 
-    const timeStr = format(date, "h:mm a"); // e.g., "11:00 PM"
+    // Convert 24-hour time to 12-hour format
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const displayHours = hours % 12 || 12;
+    const timeStr = `${displayHours}:${minutes
+      .toString()
+      .padStart(2, "0")} ${ampm}`;
 
     if (isToday(date)) {
       return `Today at ${timeStr}`;
@@ -42,7 +49,6 @@ export const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
     const currentYear = new Date().getFullYear();
     const isCurrentYear = date.getFullYear() === currentYear;
 
-    // Format: "11:00 PM, 20 June" or "11:00 PM, 20 June 2025"
     return `${timeStr}, ${format(
       date,
       isCurrentYear ? "d MMMM" : "d MMMM yyyy"
