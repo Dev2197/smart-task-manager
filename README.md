@@ -22,7 +22,7 @@ A modern full-stack application that lets you create tasks using natural languag
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Dev2197/smart-task-manager.git
    ```
 
 2. **Run Backend & Frontend**
