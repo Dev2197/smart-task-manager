@@ -3,6 +3,8 @@ import { Plus, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ParsedTask } from "../types/Task";
 
+const API_BASE_URL = process.env.VITE_API_URL || "http://localhost:3001/";
+
 interface TaskInputProps {
   onAddTask: (task: ParsedTask) => void;
 }
@@ -20,7 +22,7 @@ export const TaskInput = ({ onAddTask }: TaskInputProps) => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:3001/api/parse", {
+      const response = await fetch(`${API_BASE_URL}/api/parse`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
