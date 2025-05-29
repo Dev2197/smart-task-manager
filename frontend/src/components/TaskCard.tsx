@@ -28,31 +28,62 @@ export const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
   const formatDueDate = (date: Date | null) => {
     if (!date) return null;
 
-    // Convert 24-hour time to 12-hour format
+    // Get UTC components
     const hours = date.getUTCHours();
     const minutes = date.getUTCMinutes();
+    const day = date.getUTCDate();
+    const month = date.getUTCMonth();
+    const year = date.getUTCFullYear();
+
+    // Convert time to 12-hour format
     const ampm = hours >= 12 ? "PM" : "AM";
     const displayHours = hours % 12 || 12;
     const timeStr = `${displayHours}:${minutes
       .toString()
       .padStart(2, "0")} ${ampm}`;
 
-    if (isToday(date)) {
+    // Create a new date with UTC components for comparison
+    const today = new Date();
+    const isToday =
+      day === today.getUTCDate() &&
+      month === today.getUTCMonth() &&
+      year === today.getUTCFullYear();
+
+    const tomorrow = new Date(today);
+    tomorrow.setUTCDate(today.getUTCDate() + 1);
+    const isTomorrow =
+      day === tomorrow.getUTCDate() &&
+      month === tomorrow.getUTCMonth() &&
+      year === tomorrow.getUTCFullYear();
+
+    if (isToday) {
       return `Today at ${timeStr}`;
     }
 
-    if (isTomorrow(date)) {
+    if (isTomorrow) {
       return `Tomorrow at ${timeStr}`;
     }
 
-    // Check if the year matches current year
-    const currentYear = new Date().getFullYear();
-    const isCurrentYear = date.getFullYear() === currentYear;
+    // Format the date manually
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
 
-    return `${timeStr}, ${format(
-      date,
-      isCurrentYear ? "d MMMM" : "d MMMM yyyy"
-    )}`;
+    const currentYear = new Date().getUTCFullYear();
+    const showYear = year !== currentYear;
+
+    return `${timeStr}, ${day} ${months[month]}${showYear ? ` ${year}` : ""}`;
   };
 
   const isOverdue =
