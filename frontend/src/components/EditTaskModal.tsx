@@ -30,13 +30,33 @@ export const EditTaskModal = ({
 
   const formatDateForInput = (date: Date | null) => {
     if (!date) return "";
-    return date.toISOString().slice(0, 16);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const hours = String(date.getUTCHours()).padStart(2, "0");
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
 
   const handleDateChange = (value: string) => {
+    if (!value) {
+      setEditedTask({
+        ...editedTask,
+        dueDate: null,
+      });
+      return;
+    }
+
+    // Create a UTC date from the input value
+    const [datePart, timePart] = value.split("T");
+    const [year, month, day] = datePart.split("-").map(Number);
+    const [hours, minutes] = timePart.split(":").map(Number);
+
+    const utcDate = new Date(Date.UTC(year, month - 1, day, hours, minutes));
+
     setEditedTask({
       ...editedTask,
-      dueDate: value ? new Date(value) : null,
+      dueDate: utcDate,
     });
   };
 
