@@ -57,11 +57,11 @@ export const TaskCard = ({ task, onEdit, onDelete }: TaskCardProps) => {
       year === tomorrow.getUTCFullYear();
 
     if (isToday) {
-      return `Today at ${timeStr}`;
+      return `${timeStr}, Today`;
     }
 
     if (isTomorrow) {
-      return `Tomorrow at ${timeStr}`;
+      return `${timeStr}, Tomorrow`;
     }
 
     // Format the date manually
